@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Bhagya Blouses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-pink: #ff9ec7;
+            --secondary-pink: #ff6fa5;
+            --dark-pink: #e91e63;
+            --light-pink: #ffeef5;
+            --gold: #d4af37;
+            --light-gold: #f4e5c2;
+            --cream: #fff8f3;
+            --text-dark: #333;
+            --text-light: #666;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffeef5, #fff8f3);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-bottom: 75px; /* Space for mobile nav */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Desktop Navbar */
+        .desktop-nav{
+            display:none;
+            position:fixed;
+            top:0;
+            width:100%;
+            height:75px;
+            
+            background:linear-gradient(
+                135deg,
+                rgba(255,158,199,0.9),
+                rgba(255,111,165,0.9)
+            );
+            
+            backdrop-filter:blur(10px);
+            
+            border-bottom:2px solid #d4af37;
+            
+            z-index:1000;
+        }
+
+        .desktop-nav .container{
+            max-width:1400px;
+            margin:auto;
+            
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            
+            height:100%;
+            padding:0 30px;
+        }
+
+        .logo{
+            font-size:28px;
+            font-weight:700;
+            color:white;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .nav-menu{
+            display:flex;
+            gap:30px;
+        }
+
+        .nav-item{
+            color:white;
+            text-decoration:none;
+            font-size:16px;
+            display:flex;
+            align-items:center;
+            gap:8px;
+            
+            transition:0.3s;
+        }
+
+        .nav-item:hover{
+            color:#d4af37;
+        }
+
+        /* Mobile Navbar */
+        .mobile-nav{
+            position:fixed;
+            bottom:0;
+            
+            width:100%;
+            height:75px;
+            
+            background:linear-gradient(
+                135deg,
+                rgba(255,158,199,0.95),
+                rgba(255,111,165,0.95)
+            );
+            
+            border-top:2px solid #d4af37;
+            
+            border-radius:20px 20px 0 0;
+            
+            display:flex;
+            
+            z-index:1000;
+        }
+
+        .nav-items{
+            display:flex;
+            justify-content:space-around;
+            align-items:center;
+            
+            width:100%;
+        }
+
+        .mobile-nav .nav-item{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            
+            font-size:12px;
+            color:white;
+            
+            text-decoration:none;
+            position: relative;
+        }
+
+        .mobile-nav i{
+            font-size:22px;
+        }
+
+        .mobile-nav .nav-item.active {
+            color: #d4af37;
+        }
+
+        /* Cart Counter */
+        .cart-counter{
+            position:absolute;
+            top:-5px;
+            right:-5px;
+            
+            background:#d4af37;
+            color:white;
+            
+            width:20px;
+            height:20px;
+            
+            border-radius:50%;
+            
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            
+            font-size:12px;
+        }
+
+        /* Responsive */
+        @media(min-width:1025px){
+            .desktop-nav{
+                display:block;
+            }
+            .mobile-nav{
+                display:none;
+            }
+        }
+
+        @media(max-width:1024px){
+            .desktop-nav{
+                display:none;
+            }
+            .mobile-nav{
+                display:flex;
+            }
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 100px 20px 40px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--dark-pink), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: var(--text-light);
+        }
+
+        /* Cart Section */
+        .cart-section {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+
+        /* Cart Items */
+        .cart-items {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item:hover {
+            background: var(--light-pink);
+            border-radius: 10px;
+        }
+
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--light-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-image i {
+            font-size: 40px;
+            color: var(--secondary-pink);
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .cart-item-model {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--light-pink);
+            border-radius: 25px;
+            padding: 5px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--secondary-pink);
+        }
+
+        .quantity-btn:hover {
+            background: var(--secondary-pink);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .quantity-value {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #f44336;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            transform: scale(1.2);
+        }
+
+        /* Empty Cart State */
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .empty-cart-icon {
+            font-size: 80px;
+            color: var(--secondary-pink);
+            margin-bottom: 30px;
+            opacity: 0.7;
+        }
+
+        .empty-cart-title {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .empty-cart-description {
+            font-size: 16px;
+            color: var(--text-light);
+            max-width: 500px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .browse-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--secondary-pink), var(--primary-pink));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 111, 165, 0.4);
+        }
+
+        .browse-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 111, 165, 0.6);
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-title {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .summary-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary-pink), var(--gold));
+            border-radius: 2px;
+        }
+
+        .summary-products {
+            margin-bottom: 20px;
+        }
+
+        .summary-product {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .summary-product:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .summary-product-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .summary-product-model {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .summary-product-quantity {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .place-order-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--gold), var(--light-gold));
+            color: var(--text-dark);
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .place-order-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+        }
+
+        .place-order-btn:disabled {
+            background: #e0e0e0;
+            color: #999;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* Order Form Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-header {
+            padding: 25px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            color: var(--dark-pink);
+        }
+
+        .modal-close {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--light-pink);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--secondary-pink);
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--secondary-pink);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-pink);
+            box-shadow: 0 0 0 3px rgba(255, 111, 165, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary-pink), var(--primary-pink));
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 111, 165, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(255, 111, 165, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .cart-section {
+                grid-template-columns: 1fr;
+            }
+            .order-summary {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 32px;
+            }
+            .cart-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .cart-item-actions {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div id="navbar">
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
+            <div class="container">
+                <div class="logo">Bhagya Blouses</div>
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-item">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <a href="designs.html" class="nav-item">
+                        <i class="fas fa-tshirt"></i> Our Designs
+                    </a>
+                    <a href="booking.html" class="nav-item">
+                        <i class="fas fa-calendar"></i> Book Appointment
+                    </a>
+                    <a href="about.html" class="nav-item">
+                        <i class="fas fa-info-circle"></i> About
+                    </a>
+                    <a href="cart.html" class="nav-item active">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <div class="nav-items">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="designs.html" class="nav-item">
+                    <i class="fas fa-tshirt"></i>
+                    <span>Designs</span>
+                </a>
+                <a href="booking.html" class="nav-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Book</span>
+                </a>
+                <a href="about.html" class="nav-item">
+                    <i class="fas fa-circle-info"></i>
+                    <span>About</span>
+                </a>
+                <a href="cart.html" class="nav-item cart-btn active">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                    <div class="cart-counter" id="cartCounter">0</div>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>Shopping Cart</h1>
+        <p>Review your selections and complete your order</p>
+    </header>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <!-- Cart Items -->
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically loaded here -->
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h2 class="summary-title">Order Summary</h2>
+            <div class="summary-products" id="summaryProducts">
+                <!-- Summary products will be dynamically loaded here -->
+            </div>
+            <button class="place-order-btn" id="placeOrderBtn" disabled>Place Order</button>
+        </div>
+    </section>
+
+    <!-- Order Form Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Complete Your Order</h2>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="whatsapp">WhatsApp Number *</label>
+                        <input type="tel" id="whatsapp" name="whatsapp" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Full Address *</label>
+                        <textarea id="address" name="address" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="district">District *</label>
+                        <input type="text" id="district" name="district" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State *</label>
+                        <input type="text" id="state" name="state" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pincode">Pincode *</label>
+                        <input type="text" id="pincode" name="pincode" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="landmark">Nearest Landmark *</label>
+                        <input type="text" id="landmark" name="landmark" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelOrder">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Send Order on WhatsApp</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cart Module
+        const CartModule = (function() {
+            // Private variables
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // DOM Elements
+            const cartItemsContainer = document.getElementById('cartItems');
+            const summaryProductsContainer = document.getElementById('summaryProducts');
+            const placeOrderBtn = document.getElementById('placeOrderBtn');
+            const orderModal = document.getElementById('orderModal');
+            const orderForm = document.getElementById('orderForm');
+            const closeModalBtn = document.getElementById('closeModal');
+            const cancelOrderBtn = document.getElementById('cancelOrder');
+
+            // Initialize module
+            function init() {
+                // Load cart from localStorage
+                loadCartFromStorage();
+
+                // Check if cart is empty
+                if (cart.length === 0) {
+                    // Show empty cart state
+                    showEmptyCart();
+                    
+                    // Disable place order button
+                    placeOrderBtn.disabled = true;
+                } else {
+                    // Show cart items
+                    renderCartItems();
+                    
+                    // Enable place order button
+                    placeOrderBtn.disabled = false;
+                }
+
+                // Setup event listeners
+                setupEventListeners();
+                
+                // Update cart counter
+                updateCartCounter();
+            }
+
+            // Setup event listeners
+            function setupEventListeners() {
+                // Place order button click
+                placeOrderBtn.addEventListener('click', () => {
+                    if (cart.length > 0) {
+                        orderModal.classList.add('active');
+                    }
+                });
+
+                // Close modal
+                closeModalBtn.addEventListener('click', () => {
+                    orderModal.classList.remove('active');
+                });
+
+                // Cancel order
+                cancelOrderBtn.addEventListener('click', () => {
+                    orderModal.classList.remove('active');
+                });
+
+                // Submit order form
+                orderForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    submitOrder();
+                });
+
+                // Close modal when clicking outside
+                orderModal.addEventListener('click', (e) => {
+                    if (e.target === orderModal) {
+                        orderModal.classList.remove('active');
+                    }
+                });
+            }
+
+            // Load cart from localStorage
+            function loadCartFromStorage() {
+                const savedCart = localStorage.getItem('cart');
+                if (savedCart) {
+                    cart = JSON.parse(savedCart);
+                }
+            }
+
+            // Save cart to localStorage
+            function saveCartToStorage() {
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCounter();
+            }
+
+            // Show empty cart state
+            function showEmptyCart() {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h2 class="empty-cart-title">Your cart is empty</h2>
+                        <p class="empty-cart-description">
+                            Please select a design before placing an order.
+                        </p>
+                        <a href="designs.html" class="browse-btn">Browse Designs</a>
+                    </div>
+                `;
+                
+                // Clear summary products
+                summaryProductsContainer.innerHTML = '';
+            }
+
+            // Render cart items
+            function renderCartItems() {
+                if (cart.length === 0) {
+                    showEmptyCart();
+                    return;
+                }
+
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="cart-item" data-id="${item.id}">
+                        <div class="cart-item-image">
+                            ${item.image ? `<img src="${item.image}" alt="${item.title}">` : `<i class="fas fa-shirt"></i>`}
+                        </div>
+                        <div class="cart-item-details">
+                            <h3 class="cart-item-title">${item.title}</h3>
+                            <p class="cart-item-model">Model: ${item.model}</p>
+                            <div class="cart-item-actions">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn decrease-qty">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <span class="quantity-value">${item.quantity}</span>
+                                    <button class="quantity-btn increase-qty">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <button class="remove-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Add event listeners for cart items
+                document.querySelectorAll('.increase-qty').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = parseInt(e.target.closest('.cart-item').dataset.id);
+                        increaseQuantity(id);
+                    });
+                });
+
+                document.querySelectorAll('.decrease-qty').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = parseInt(e.target.closest('.cart-item').dataset.id);
+                        decreaseQuantity(id);
+                    });
+                });
+
+                document.querySelectorAll('.remove-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = parseInt(e.target.closest('.cart-item').dataset.id);
+                        removeFromCart(id);
+                    });
+                });
+
+                // Update summary
+                updateSummary();
+            }
+
+            // Increase quantity
+            function increaseQuantity(id) {
+                const item = cart.find(item => item.id === id);
+                if (item) {
+                    item.quantity++;
+                    saveCartToStorage();
+                    renderCartItems();
+                }
+            }
+
+            // Decrease quantity
+            function decreaseQuantity(id) {
+                const item = cart.find(item => item.id === id);
+                if (item && item.quantity > 1) {
+                    item.quantity--;
+                    saveCartToStorage();
+                    renderCartItems();
+                }
+            }
+
+            // Remove from cart
+            function removeFromCart(id) {
+                cart = cart.filter(item => item.id !== id);
+                saveCartToStorage();
+                renderCartItems();
+                
+                // Check if cart is now empty
+                if (cart.length === 0) {
+                    placeOrderBtn.disabled = true;
+                }
+            }
+
+            // Update summary
+            function updateSummary() {
+                if (cart.length === 0) {
+                    summaryProductsContainer.innerHTML = '';
+                    return;
+                }
+
+                summaryProductsContainer.innerHTML = cart.map(item => `
+                    <div class="summary-product">
+                        <div class="summary-product-name">${item.title}</div>
+                        <div class="summary-product-model">Model: ${item.model}</div>
+                        <div class="summary-product-quantity">Quantity: ${item.quantity}</div>
+                    </div>
+                `).join('');
+            }
+
+            // Submit order via WhatsApp
+            function submitOrder() {
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const whatsapp = document.getElementById('whatsapp').value;
+                const email = document.getElementById('email').value;
+                const address = document.getElementById('address').value;
+                const district = document.getElementById('district').value;
+                const state = document.getElementById('state').value;
+                const pincode = document.getElementById('pincode').value;
+                const landmark = document.getElementById('landmark').value;
+                
+                // Format products list
+                const productsList = cart.map(item => 
+                    `${item.title} - Model: ${item.model} - Quantity: ${item.quantity}`
+                ).join('\n');
+                
+                // Create WhatsApp message
+                const message = `Hello Bhagya Blouses,
+
+I want to place an order.
+
+Customer Name: ${name}
+Phone Number: ${phone}
+WhatsApp Number: ${whatsapp}
+Email: ${email}
+Address: ${address}
+District: ${district}
+State: ${state}
+Pincode: ${pincode}
+Nearest Landmark: ${landmark}
+
+Selected Products:
+ ${productsList}
+
+Please confirm my order.`;
+                
+                // Open WhatsApp
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappUrl = `https://wa.me/917337281880?text=${encodedMessage}`;
+                window.open(whatsappUrl, '_blank');
+                
+                // Close modal and clear cart
+                orderModal.classList.remove('active');
+                cart = [];
+                saveCartToStorage();
+                renderCartItems();
+                placeOrderBtn.disabled = true;
+                
+                // Reset form
+                orderForm.reset();
+            }
+
+            // Update cart counter
+            function updateCartCounter() {
+                const counter = document.getElementById("cartCounter");
+                
+                if (!counter) return;
+                
+                let total = cart.reduce((sum, item) => sum + item.quantity, 0);
+                
+                counter.textContent = total;
+                
+                if (total === 0) {
+                    counter.style.display = "none";
+                } else {
+                    counter.style.display = "flex";
+                }
+            }
+
+            // Public API
+            return {
+                init,
+                updateCartCounter
+            };
+        })();
+
+        // Initialize the cart module when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            CartModule.init();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Bhagya Blouses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff9ec7;
+            --secondary-pink: #ff6fa5;
+            --dark-pink: #e91e63;
+            --light-pink: #ffeef5;
+            --gold: #d4af37;
+            --light-gold: #f4e5c2;
+            --cream: #fff8f3;
+            --text-dark: #333;
+            --text-light: #666;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        /* Pink scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #ffeef5;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink));
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--secondary-pink), var(--dark-pink));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffeef5, #fff8f3);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-bottom: 75px; /* Space for mobile nav */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Desktop Navigation */
+        .desktop-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 75px;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 158, 199, 0.9),
+                rgba(255, 111, 165, 0.9)
+            );
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #d4af37;
+            z-index: 1000;
+        }
+
+        .desktop-nav .container {
+            max-width: 1400px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 30px;
+        }
+
+        .desktop-nav .logo {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .desktop-nav .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .desktop-nav .nav-item {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .desktop-nav .nav-item:hover {
+            color: #d4af37;
+        }
+
+        .desktop-nav .nav-item.active {
+            color: #d4af37;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 75px;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 158, 199, 0.95),
+                rgba(255, 111, 165, 0.95)
+            );
+            border-top: 2px solid #d4af37;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            z-index: 1000;
+        }
+
+        .mobile-nav .nav-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+
+        .mobile-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: white;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .mobile-nav .nav-item i {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+
+        .mobile-nav .nav-item:hover, .mobile-nav .nav-item.active {
+            color: #d4af37;
+        }
+
+        /* Cart Counter */
+        .cart-counter {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #d4af37;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 120px 20px 60px;
+            display: flex;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content {
+            animation: fadeInLeft 1s ease;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--dark-pink), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            height: 500px;
+            background: linear-gradient(135deg, var(--light-pink), var(--cream));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeInRight 1s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--text-dark);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary-pink), var(--gold));
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--secondary-pink), var(--primary-pink));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .service-icon i {
+            font-size: 30px;
+            color: white;
+        }
+
+        .service-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .service-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        /* Why Choose Us Section */
+        .why-section {
+            padding: 80px 20px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 158, 199, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold), var(--light-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-icon i {
+            font-size: 24px;
+            color: white;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .feature-text p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        /* Location Section */
+        .location-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .location-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .location-info {
+            animation: fadeInLeft 1s ease;
+        }
+
+        .location-title {
+            font-size: 42px;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        .address {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .address i {
+            color: var(--secondary-pink);
+            margin-right: 10px;
+        }
+
+        .directions-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--gold), var(--light-gold));
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .directions-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+        }
+
+        .map-container {
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeInRight 1s ease;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-pink), var(--secondary-pink));
+            color: white;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (min-width: 1025px) {
+            .desktop-nav {
+                display: block;
+            }
+            .mobile-nav {
+                display: none;
+            }
+            body {
+                padding-bottom: 0;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .desktop-nav {
+                display: none;
+            }
+            .mobile-nav {
+                display: flex;
+            }
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero-title {
+                font-size: 36px;
+            }
+            .location-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 28px;
+            }
+            .section-title {
+                font-size: 32px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Small Screen Fixes for Mobile Navigation */
+        @media (max-width: 425px) {
+            .mobile-nav {
+                height: 65px;
+            }
+            .mobile-nav .nav-item {
+                font-size: 10px;
+            }
+            .mobile-nav .nav-item i {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .mobile-nav {
+                height: 60px;
+            }
+            .mobile-nav .nav-item {
+                font-size: 9px;
+            }
+            .mobile-nav .nav-item i {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .mobile-nav {
+                height: 55px;
+            }
+            .mobile-nav .nav-item {
+                font-size: 8px;
+            }
+            .mobile-nav .nav-item i {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
+        <div class="container">
+            <div class="logo">Bhagya Blouses</div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="designs.html" class="nav-item">
+                    <i class="fas fa-tshirt"></i> Our Designs
+                </a>
+                <a href="booking.html" class="nav-item">
+                    <i class="fas fa-calendar"></i> Book Appointment
+                </a>
+                <a href="about.html" class="nav-item active">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+                <a href="cart.html" class="nav-item">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <div class="nav-items">
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="designs.html" class="nav-item">
+                <i class="fas fa-tshirt"></i>
+                <span>Designs</span>
+            </a>
+            <a href="booking.html" class="nav-item">
+                <i class="fas fa-calendar-check"></i>
+                <span>Book</span>
+            </a>
+            <a href="about.html" class="nav-item active">
+                <i class="fas fa-circle-info"></i>
+                <span>About</span>
+            </a>
+            <a href="cart.html" class="nav-item cart-btn">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Cart</span>
+                <div class="cart-counter" id="cartCounter">0</div>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">About Bhagya Blouses</h1>
+                <p class="hero-subtitle">
+                    "Bhagya Blouses is dedicated to creating elegant, stylish, and perfectly stitched blouses that reflect tradition and modern fashion. Our designs combine creativity, craftsmanship, and attention to detail to bring every customer a unique and beautiful outfit."
+                </p>
+            </div>
+            <div class="hero-image">
+                <img src="https://picsum.photos/seed/bhagyablousesboutique/600/500.jpg" alt="Bhagya Blouses Boutique">
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Services Section -->
+    <section class="services-section">
+        <div class="section-container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-ruler"></i>
+                    </div>
+                    <h3 class="service-title">Custom Blouse Stitching</h3>
+                    <p class="service-description">
+                        Perfectly tailored blouses designed according to customer measurements and preferences.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="service-title">Designer Blouse Collection</h3>
+                    <p class="service-description">
+                        Unique and trendy blouse designs inspired by traditional and modern fashion.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-ring"></i>
+                    </div>
+                    <h3 class="service-title">Bridal Blouse Designs</h3>
+                    <p class="service-description">
+                        Exclusive bridal blouses crafted with premium embroidery and detailed finishing.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-thread"></i>
+                    </div>
+                    <h3 class="service-title">Embroidery Work</h3>
+                    <p class="service-description">
+                        Beautiful embroidery including mirror work, floral designs, and creative patterns.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-pencil-ruler"></i>
+                    </div>
+                    <h3 class="service-title">Custom Design Requests</h3>
+                    <p class="service-description">
+                        Customers can request their own designs and get personalized stitching.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="service-title">Appointment Booking</h3>
+                    <p class="service-description">
+                        Customers can book online or offline appointments for blouse stitching and design consultation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-section">
+        <div class="section-container">
+            <h2 class="section-title">Why Choose Bhagya Blouses</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>High Quality Stitching</h3>
+                        <p>Premium craftsmanship with attention to every detail for perfect fitting and finish.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Unique Designer Collections</h3>
+                        <p>Exclusive designs that blend traditional elegance with contemporary fashion trends.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Affordable Pricing</h3>
+                        <p>Premium quality at reasonable prices to make elegant fashion accessible to all.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Custom Designs Available</h3>
+                        <p>Personalized designs created according to your preferences and measurements.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Professional Tailoring Experience</h3>
+                        <p>Years of expertise in creating perfectly fitted blouses for all body types.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Customer Satisfaction</h3>
+                        <p>Dedicated to ensuring every customer leaves happy with their custom blouse.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location-section">
+        <div class="location-container">
+            <div class="location-info">
+                <h2 class="location-title">Visit Our Store</h2>
+                <div class="address">
+                    <p><i class="fas fa-map-marker-alt"></i> Vizag Steel Plant</p>
+                    <p><i class="fas fa-location-dot"></i> Sector 1, Near SBI Bank</p>
+                    <p><i class="fas fa-city"></i> Visakhapatnam, Andhra Pradesh, India</p>
+                </div>
+                <a href="https://maps.google.com/?q=Vizag+Steel+Plant+Sector+1+Near+SBI+Bank+Visakhapatnam" target="_blank" class="directions-btn">
+                    <i class="fas fa-directions"></i> Get Directions
+                </a>
+            </div>
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3824.8129184957965!2d83.31879531482548!3d17.735541387950856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a394335b7b7b7b7b%3A0x7b7b7b7b7b7b7b7b!2sVizag%20Steel%20Plant!5e0!3m2!1sen!2sin!4v1623456789012!5m2!1sen!2sin" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Brand</h3>
+                <p>Bhagya Blouses</p>
+                <p>"Elegant Designs. Perfect Stitching."</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/bhagyablouses" target="_blank" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@BhagyaBlouses" target="_blank" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://wa.me/917337281880" target="_blank" class="social-link">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="designs.html">Our Designs</a></li>
+                    <li><a href="booking.html">Book Appointment</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li><a href="tel:+917337281880"><i class="fas fa-phone"></i> Phone</a></li>
+                    <li><a href="https://wa.me/917337281880"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                    <li><a href="mailto:info@bhagyablouses.com"><i class="fas fa-envelope"></i> Email</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Social Media</h3>
+                <p>Follow us for the latest designs and updates</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/bhagyablouses" target="_blank" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@BhagyaBlouses" target="_blank" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Bhagya Blouses. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cart Counter Logic
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        function updateCartCounter() {
+            const counter = document.getElementById("cartCounter");
+            if (!counter) return;
+            
+            let total = cart.reduce((sum, item) => sum + item.quantity, 0);
+            counter.textContent = total;
+            
+            if (total === 0) {
+                counter.style.display = "none";
+            } else {
+                counter.style.display = "flex";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", updateCartCounter);
+    </script>
+</body>
+</html>
