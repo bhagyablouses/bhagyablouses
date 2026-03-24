@@ -123,9 +123,10 @@
 
         /* Mobile Navigation */
         .mobile-nav {
-            display: flex;
+            display: none;
             position: fixed;
             bottom: 0;
+            left: 0;
             width: 100%;
             height: 75px;
             background: linear-gradient(135deg, rgba(255, 158, 199, 0.95), rgba(255, 111, 165, 0.95));
@@ -160,6 +161,7 @@
             padding: 5px;
             width: 18%;
             height: 100%;
+            z-index: 10;
         }
 
         .mobile-nav .nav-item i {
@@ -204,6 +206,7 @@
             font-size: 12px;
             font-weight: 700;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 15;
         }
 
         /* Hero Section */
@@ -704,11 +707,13 @@
             padding: 20px;
             opacity: 0;
             transition: opacity 0.3s ease;
+            pointer-events: none; /* Prevent blocking clicks when hidden */
         }
 
         .mobile-desktop-popup.active {
             display: flex;
             opacity: 1;
+            pointer-events: auto; /* Allow clicks when active */
         }
 
         .mobile-desktop-popup-content {
@@ -897,19 +902,19 @@
         <div class="container">
             <div class="logo">Bhagya Blouses</div>
             <div class="nav-menu">
-                <a href="index.html" class="nav-item active">
+                <a href="index.html" class="nav-item" data-page="index">
                     <i class="fas fa-home"></i> Home
                 </a>
-                <a href="designs.html" class="nav-item">
+                <a href="designs.html" class="nav-item" data-page="designs">
                     <i class="fas fa-tshirt"></i> Our Designs
                 </a>
-                <a href="booking.html" class="nav-item">
+                <a href="booking.html" class="nav-item" data-page="booking">
                     <i class="fas fa-calendar"></i> Book Appointment
                 </a>
-                <a href="about.html" class="nav-item">
+                <a href="about.html" class="nav-item" data-page="about">
                     <i class="fas fa-info-circle"></i> About
                 </a>
-                <a href="cart.html" class="nav-item">
+                <a href="cart.html" class="nav-item" data-page="cart">
                     <i class="fas fa-shopping-cart"></i> Cart
                 </a>
             </div>
@@ -919,23 +924,23 @@
     <!-- Mobile Navigation -->
     <nav class="mobile-nav">
         <div class="nav-items">
-            <a href="index.html" class="nav-item active">
+            <a href="index.html" class="nav-item" data-page="index">
                 <i class="fas fa-home"></i>
                 <span>Home</span>
             </a>
-            <a href="designs.html" class="nav-item">
+            <a href="designs.html" class="nav-item" data-page="designs">
                 <i class="fas fa-tshirt"></i>
                 <span>Designs</span>
             </a>
-            <a href="booking.html" class="nav-item">
+            <a href="booking.html" class="nav-item" data-page="booking">
                 <i class="fas fa-calendar-check"></i>
                 <span>Book</span>
             </a>
-            <a href="about.html" class="nav-item">
+            <a href="about.html" class="nav-item" data-page="about">
                 <i class="fas fa-circle-info"></i>
                 <span>About</span>
             </a>
-            <a href="cart.html" class="nav-item" style="position: relative;">
+            <a href="cart.html" class="nav-item" data-page="cart" style="position: relative;">
                 <i class="fas fa-shopping-cart"></i>
                 <span>Cart</span>
                 <div class="cart-counter" id="cartCounter">0</div>
@@ -1114,8 +1119,7 @@
                 priceRange: "₹600-800",
                 price: 800,
                 description: "Delicate floral patterns with soft pastel shades and minimal embroidery. This design brings out the feminine charm with its subtle yet elegant floral motifs.",
-                image: "https://i.postimg.cc/fyZqgF7j/Bridal-2.jpg"
-            },
+                image: "https://i.postimg.cc/3JB1gZ5d/Bridal-2.jpg"            },
             {
                 id: 4,
                 title: "Traditional Cut Work",
@@ -1144,61 +1148,6 @@
                 description: "Traditional mango motif with golden thread work and stone embellishments. The mango design is a symbol of prosperity and is a timeless classic in Indian ethnic wear.",
                 image: "https://i.postimg.cc/289T43th/Cut-work-2.jpg",
                 badge: "Bestseller"
-            },
-            {
-                id: 7,
-                title: "Elegant V-Neck",
-                model: "BB-2024-007",
-                priceRange: "₹700-900",
-                price: 900,
-                description: "Sophisticated V-neck design with delicate lacework and subtle bead embellishments. This design adds a touch of elegance and sophistication to any saree.",
-                image: "https://i.postimg.cc/CL2HRXZs/Net-design.jpg"
-            },
-            {
-                id: 8,
-                title: "Butterfly Dreams",
-                model: "BB-2024-008",
-                priceRange: "₹600-800",
-                price: 800,
-                description: "Delicate butterfly patterns with colorful embroidery. Perfect for spring occasions, this design symbolizes transformation and beauty with its intricate butterfly motifs.",
-                image: "https://i.postimg.cc/76bZJsJ2/Floral-design.jpg"
-            },
-            {
-                id: 9,
-                title: "Lotus Grace",
-                model: "BB-2024-009",
-                priceRange: "₹800-1000",
-                price: 1000,
-                description: "Elegant lotus motifs with pearl embellishments. Symbolizes purity and beauty, the lotus design adds a divine touch to your traditional attire.",
-                image: "https://i.postimg.cc/cJx7KnMq/Simple-design.jpg"
-            },
-            {
-                id: 10,
-                title: "Mirror Magic",
-                model: "BB-2024-010",
-                priceRange: "₹900-1100",
-                price: 1100,
-                description: "Stunning mirror work with traditional patterns. Reflects light beautifully and adds a sparkling element to your outfit, making you stand out in any gathering.",
-                image: "https://i.postimg.cc/wBY2XbQs/Mirror-design.jpg",
-                badge: "Popular"
-            },
-            {
-                id: 11,
-                title: "Kids Special",
-                model: "BB-2024-011",
-                priceRange: "₹400-600",
-                price: 600,
-                description: "Cute and comfortable designs specially crafted for kids with soft fabrics. These blouses are designed keeping in mind the comfort and style needs of young ones.",
-                image: "https://i.postimg.cc/GhZxRSNH/Pot-neck-design.jpg"
-            },
-            {
-                id: 12,
-                title: "3D Emboss Art",
-                model: "BB-2024-012",
-                priceRange: "₹1000-1300",
-                price: 1300,
-                description: "Innovative 3D emboss work that creates stunning texture and depth. This contemporary design technique adds a unique dimension to traditional blouse designs.",
-                image: "https://i.postimg.cc/nzRqPdBG/Floral-design.jpg"
             }
         ];
 
@@ -1336,6 +1285,39 @@
             }
         }
 
+        // Set active navigation based on current page
+        function setActiveNavigation() {
+            // Get current page filename
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            
+            // Remove .html extension if present
+            const pageName = currentPage.replace('.html', '');
+            
+            // Find and update active state for desktop nav
+            const desktopNavItems = document.querySelectorAll('.desktop-nav .nav-item');
+            desktopNavItems.forEach(item => {
+                const itemPage = item.getAttribute('data-page');
+                if (itemPage === pageName || 
+                    (pageName === '' && itemPage === 'index')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // Find and update active state for mobile nav
+            const mobileNavItems = document.querySelectorAll('.mobile-nav .nav-item');
+            mobileNavItems.forEach(item => {
+                const itemPage = item.getAttribute('data-page');
+                if (itemPage === pageName || 
+                    (pageName === '' && itemPage === 'index')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
         // Mobile desktop mode popup functionality
         function checkMobileDesktopPopup() {
             // Check if screen width is 320px or less
@@ -1360,6 +1342,9 @@
             
             // Update cart counter
             updateCartCounter();
+            
+            // Set active navigation based on current page
+            setActiveNavigation();
             
             // Setup modal event listeners
             document.getElementById('modalClose').addEventListener('click', closeModal);
