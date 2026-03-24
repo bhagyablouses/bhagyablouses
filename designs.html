@@ -35,7 +35,7 @@
             color: var(--text-dark);
             overflow-x: hidden;
             min-height: 100vh;
-            padding-bottom: 70px; /* Space for mobile nav */
+            padding-bottom: 75px; /* Space for mobile nav */
             position: relative;
         }
 
@@ -135,20 +135,20 @@
             border-radius: 2px;
         }
 
-        /* Mobile Navigation - Fixed for Small Screens */
+        /* Mobile Navigation - Fixed to match index.html */
         .mobile-nav {
             display: flex;
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 70px;
-            background: linear-gradient(135deg, rgba(255, 158, 199, 0.85), rgba(255, 111, 165, 0.85));
-            backdrop-filter: blur(15px);
+            height: 75px; /* Fixed height to match index.html */
+            background: linear-gradient(135deg, rgba(255, 158, 199, 0.95), rgba(255, 111, 165, 0.95));
+            backdrop-filter: blur(10px);
             border-top: 2px solid var(--gold);
             border-radius: 20px 20px 0 0;
             z-index: 1000;
-            box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
             padding: 0;
         }
 
@@ -158,7 +158,7 @@
             height: 100%;
             justify-content: space-around;
             align-items: center;
-            padding: 5px 0;
+            padding: 0 20px; /* Consistent padding with index.html */
         }
 
         .mobile-nav .nav-item {
@@ -166,20 +166,20 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 3px;
+            gap: 5px; /* Consistent gap with index.html */
             color: white;
             text-decoration: none;
-            font-size: 10px;
-            font-weight: 500;
+            font-size: 12px; /* Fixed font size to match index.html */
             transition: all 0.3s ease;
             position: relative;
             padding: 5px;
             width: 18%;
             height: 100%;
+            z-index: 10;
         }
 
         .mobile-nav .nav-item i {
-            font-size: 20px;
+            font-size: 22px; /* Fixed icon size to match index.html */
             transition: all 0.3s ease;
         }
 
@@ -187,8 +187,8 @@
             color: var(--gold);
         }
 
-        .mobile-nav .nav-item:hover i, .mobile-nav .nav-item.active i {
-            transform: translateY(-2px);
+        .mobile-nav .nav-item:hover i {
+            transform: translateY(-3px); /* Consistent hover effect with index.html */
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
         }
 
@@ -202,6 +202,25 @@
             height: 3px;
             background: var(--gold);
             border-radius: 0 0 3px 3px;
+        }
+
+        /* Cart Counter - Fixed to match index.html */
+        .cart-counter {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--gold);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 15;
         }
 
         /* Page Header */
@@ -514,23 +533,6 @@
         .btn-secondary:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4);
-        }
-
-        /* Cart Counter */
-        .cart-counter {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--gold);
-            color: white;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 700;
         }
 
         /* Product Detail Modal */
@@ -992,63 +994,6 @@
                 align-items: center;
             }
         }
-
-        /* Small Screen Fixes for Mobile Navigation */
-        @media (max-width: 425px) {
-            .mobile-nav {
-                height: 65px;
-            }
-            .mobile-nav .nav-item {
-                font-size: 9px;
-            }
-            .mobile-nav .nav-item i {
-                font-size: 18px;
-            }
-        }
-
-        @media (max-width: 375px) {
-            .mobile-nav {
-                height: 60px;
-            }
-            .mobile-nav .nav-item {
-                font-size: 8px;
-                gap: 2px;
-            }
-            .mobile-nav .nav-item i {
-                font-size: 16px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .mobile-nav {
-                height: 60px;
-            }
-            .mobile-nav .nav-item {
-                font-size: 8px;
-                padding: 3px;
-            }
-            .mobile-nav .nav-item i {
-                font-size: 16px;
-            }
-        }
-
-        @media (max-width: 320px) {
-            .mobile-nav {
-                height: 55px;
-            }
-            .mobile-nav .nav-item {
-                font-size: 7px;
-                padding: 2px;
-                gap: 1px;
-            }
-            .mobile-nav .nav-item i {
-                font-size: 14px;
-            }
-            .mobile-nav .nav-item.active::before {
-                width: 20px;
-                height: 2px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -1064,7 +1009,7 @@
                     <i class="fas fa-home"></i> Home
                 </a>
                 <a href="designs.html" class="nav-item active">
-                    <i class="fas fa-shirt"></i> Our Designs
+                    <i class="fas fa-tshirt"></i> Our Designs
                 </a>
                 <a href="booking.html" class="nav-item">
                     <i class="fas fa-calendar-check"></i> Book Appointment
@@ -1079,15 +1024,15 @@
         </div>
     </nav>
 
-    <!-- Mobile Navigation - Fixed for Small Screens -->
+    <!-- Mobile Navigation - Fixed to match index.html -->
     <nav class="mobile-nav">
         <div class="nav-items">
             <a href="index.html" class="nav-item">
-                <i class="fas fa-house"></i>
+                <i class="fas fa-home"></i>
                 <span>Home</span>
             </a>
             <a href="designs.html" class="nav-item active">
-                <i class="fas fa-shirt"></i>
+                <i class="fas fa-tshirt"></i>
                 <span>Designs</span>
             </a>
             <a href="booking.html" class="nav-item">
@@ -1099,7 +1044,7 @@
                 <span>About</span>
             </a>
             <a href="cart.html" class="nav-item" style="position: relative;">
-                <i class="fas fa-cart-shopping"></i>
+                <i class="fas fa-shopping-cart"></i>
                 <span>Cart</span>
                 <div class="cart-counter" id="cartCounter">0</div>
             </a>
